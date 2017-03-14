@@ -60,6 +60,7 @@ public class ScrubContainerView: UIView {
     private func showButtons() {
         
         playButton.setTitle("Play", for: .normal)
+        playButton.setTitle("Pause", for: .selected)
         resetButton.setTitle("Reset", for: .normal)
         
         playButton.addTarget(self, action: #selector(ScrubContainerView.handlePlay), for: .touchDown)
@@ -71,16 +72,41 @@ public class ScrubContainerView: UIView {
     
     func handlePlay() {
         
-        guard let animator = animator?() else { return }
+        guard let animator = scrubAnimator else { return }
         
-        animator.addAnimations {
-            self.scrubber.setValue(1.0, animated: true)
+        playButton.isSelected = !playButton.isSelected
+        
+//        switch animator.state {
+//        case .active: print("state.active")
+//        case .inactive: print("state.inactive")
+//        case .stopped: print("case.stopped")
+//        }
+//        
+//        print(animator.fractionComplete)
+        
+        if animator.isRunning {
+            animator.pauseAnimation()
+            scrubber.value = Float(animator.fractionComplete)
+        }
+        else if animator.fractionComplete.isZero {
+            
+            animator.addAnimations {
+                self.scrubber.setValue(1.0, animated: true)
+            }
+            
+            animator.addCompletion({ _ in
+                self.handleReset()
+            })
+            
+            animator.startAnimation()
+            
+        }
+        else {
+            animator.continueAnimation(withTimingParameters: animator.timingParameters, durationFactor: CGFloat(scrubber.value))
         }
         
-        playButton.isEnabled = false
-        scrubber.isEnabled = false
+        //playButton.isEnabled = false
         
-        animator.startAnimation()
     }
     
     func handleReset() {
@@ -95,7 +121,11 @@ public class ScrubContainerView: UIView {
     }
     
     func handleScrub() {
-        playButton.isEnabled = false
+        //playButton.isEnabled = false
+        if scrubAnimator?.isRunning ?? false {
+            scrubAnimator?.pauseAnimation()
+        }
+        
         scrubAnimator?.fractionComplete = CGFloat(scrubber.value)
     }
     
