@@ -51,7 +51,7 @@ container.startState = {
 // define the four steps of the animation
 container.animator = {
     
-    let animator = UIViewPropertyAnimator(duration: 2.5, curve: .easeInOut)
+    let animator = UIViewPropertyAnimator(duration: 1.5, curve: .easeInOut)
     
     animator.addAnimations {
         
