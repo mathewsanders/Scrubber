@@ -8,10 +8,9 @@ PlaygroundPage.current.liveView = container
 
 // set up views to animate
 let square = UIView()
-square.center = container.center
 container.addSubview(square)
+square.center = container.center
 
-// (optional) define state for start and reset
 container.startState = {
     square.transform = .identity
     square.bounds.size = CGSize(width: 150, height: 50)
