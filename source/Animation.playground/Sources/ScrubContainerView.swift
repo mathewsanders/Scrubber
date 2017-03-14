@@ -5,19 +5,21 @@ public class ScrubContainerView: UIView {
     private let scrubber: UISlider
     private let playButton: UIButton
     private let resetButton: UIButton
+    private var scrubAnimator: UIViewPropertyAnimator?
     
-    private var _animator: UIViewPropertyAnimator?
-    
+    /// The property animator to drive animations
     public var animator: (() -> UIViewPropertyAnimator)? {
         didSet {
-            _animator = animator?()
+            scrubAnimator = animator?()
         }
     }
     
+    /// The start state for objects to be animated
     public var startState: (() -> ())? {
         didSet {
-            startState?()
+            guard let startState = startState else { return }
             
+            startState()
             showButtons()
         }
     }
@@ -36,8 +38,6 @@ public class ScrubContainerView: UIView {
         
         backgroundColor = .white
         
-        //playButton.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
-        
         playButton.isHidden = true
         resetButton.isHidden = true
         
@@ -54,9 +54,7 @@ public class ScrubContainerView: UIView {
         stack.addArrangedSubview(resetButton)
         
         addSubview(stack)
-        
         scrubber.addTarget(self, action: #selector(ScrubContainerView.handleScrub), for: .valueChanged)
-        
     }
     
     private func showButtons() {
@@ -71,39 +69,34 @@ public class ScrubContainerView: UIView {
         resetButton.isHidden = false
     }
     
-    public func handlePlay() {
+    func handlePlay() {
         
         guard let animator = animator?() else { return }
         
         animator.addAnimations {
-            
-            UIView.animateKeyframes(withDuration: 1, delay: 0, options: [.calculationModePaced], animations: {
-                
-                self.scrubber.setValue(1.0, animated: true)
-            })
+            self.scrubber.setValue(1.0, animated: true)
         }
         
         playButton.isEnabled = false
         scrubber.isEnabled = false
         
         animator.startAnimation()
-        
     }
     
-    public func handleReset() {
+    func handleReset() {
         
         scrubber.isEnabled = true
         playButton.isEnabled = true
         
-        _animator?.stopAnimation(true)
-        _animator = animator?()
+        scrubAnimator?.stopAnimation(true)
+        scrubAnimator = animator?()
         scrubber.setValue(0.0, animated: true)
         startState?()
     }
     
-    public func handleScrub() {
+    func handleScrub() {
         playButton.isEnabled = false
-        _animator?.fractionComplete = CGFloat(scrubber.value)
+        scrubAnimator?.fractionComplete = CGFloat(scrubber.value)
     }
     
     required public init?(coder aDecoder: NSCoder) {
