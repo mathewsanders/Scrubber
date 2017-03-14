@@ -9,7 +9,7 @@ scrub through your animation interpolation.
 
 Here's a simple example animating the size, color, and rotation of a view:
 
-~~~~
+````Swift
 import UIKit
 import PlaygroundSupport
 
@@ -37,28 +37,28 @@ container.animator = {
 
     return animator
 }
-~~~~
+````
 
 Dragging the `UISlider` lets you examine the animation at any intermediate step.
 
-![alt text](./assets/scrubber-simple-1.gif)
+<img src="./assets/scrubber-simple-1.gif" width="320">
 
 `ScrubContainerView` also exposes a closure named `startState`. This closure
 defines the state of properties at the start of an animation:
 
-~~~~
+````Swift
 container.startState = {
     square.transform = .identity
     square.bounds.size = CGSize(width: 150, height: 50)
     square.backgroundColor = .red
 }
-~~~~
+````
 
 When this closure is defined, `ScrubContainerView` adds buttons to play the
 animation with it's default timing curve, and a reset button to return animation
 to its start state after scrubbing.
 
-![alt text](./assets/scrubber-simple-2.gif)
+<img src="./assets/scrubber-simple-2.gif" width="320">
 
 ## Roadmap
 - [x] UISlider to scrub animations
