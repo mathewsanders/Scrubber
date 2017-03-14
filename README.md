@@ -60,7 +60,7 @@ to its start state after scrubbing.
 
 <img src="./assets/scrubber-simple-2.gif" width="320">
 
-Along with this simple example, the playground also [includes an example](blob/master/source/Animation.playground/Pages/Keyframe%20example.xcplaygroundpage/Contents.swift)
+Along with this simple example, the playground also [includes an example](https://github.com/mathewsanders/Scrubber/blob/master/source/Animation.playground/Pages/Keyframe%20example.xcplaygroundpage/Contents.swift)
 where a series 4 steps are chained together using keyframes to show how more
 complex multi-step animations can be built.
 
