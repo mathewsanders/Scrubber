@@ -1,30 +1,52 @@
-# Animation Playground Scrubber 🎚
+# Playground Animation Scrubber 🎚
 
-This is a playground set up to explore, debug, and refine animations made using
-`UIViewPropertyAnimator`.
+There are a lot of frameworks and tools for making animations and animated
+transitions for your iOS projects.
 
-The playground includes `ScrubContainerView` a simple UIView subclass that
-exposes an `animator` property, and adds a `UISlider` control so you can easily
-scrub through your animation interpolation.
+If you're targeting iOS/tvOS 10.0+, then `UIViewPropertyAnimator` is probably
+powerful enough for your needs: It includes the standard easing curves, a nice
+implementation of spring physics, an easy way to define your own custom
+timing curve, and a scalable API that allows from simple single step
+interpolation, to chained, interruptible, and animations that can be modified on
+the fly.
 
-Here's a simple example animating the size, color, and rotation of a view:
+## ScrubContainerView
+This project doesn't modify or build on top of `UIViewPropertyAnimator`, but
+instead provides `ScrubContainerView` — a simple UIView subclass — that makes it
+easier to create, explore, debug, and refine an animation in a playground.
+
+
+Start by making a playground and importing `UIKit` and `PlaygroundSupport`
 
 ````Swift
 import UIKit
 import PlaygroundSupport
+````
 
+Create a new `ScrubContainerView` and make that the playground's `liveView`
+(this presents the view in the playground's assistant editor panel.
+
+````Swift
 let container = ScrubContainerView()
 PlaygroundPage.current.liveView = container
+````
 
-// set up views to animate
+Next, go ahead an set up the objects to be animated, adding them to the
+`ScrubContainerView` and setting their initial positions.
+
+````Swift
 let square = UIView()
 container.addSubview(square)
 square.center = container.center
 square.transform = .identity
 square.bounds.size = CGSize(width: 150, height: 50)
 square.backgroundColor = .red
+````
 
-// provide the container the animator to scrub
+Finally, assign `animator` with a closure that returns a
+`UIViewPropertyAnimator`. This defines the animations to perform.
+
+````Swift
 container.animator = {
 
     let animator = UIViewPropertyAnimator(duration: 2.5, curve: .easeInOut)
@@ -39,12 +61,14 @@ container.animator = {
 }
 ````
 
-Dragging the `UISlider` lets you examine the animation at any intermediate step.
+`ScrubContainerView` adds a `UISlider` that lets you scrub through the animation
+and look at it at any intermediate step.
 
 <img src="./assets/scrubber-simple-1.gif" width="320">
 
-`ScrubContainerView` also exposes a closure named `startState`. This closure
-defines the state of properties at the start of an animation:
+If you wrap the expressions that define the default set-up of the animation,
+`ScrubContainerView` also adds a play button that allows you to watch the
+animation perform with it's defined duration and timing curve.
 
 ````Swift
 container.startState = {
@@ -54,15 +78,12 @@ container.startState = {
 }
 ````
 
-When this closure is defined, `ScrubContainerView` adds buttons to play the
-animation with it's default timing curve, and a reset button to return animation
-to its start state after scrubbing.
-
 <img src="./assets/scrubber-simple-2.gif" width="320">
 
-Along with this simple example, the playground also [includes an example](https://github.com/mathewsanders/Scrubber/blob/master/source/Animation.playground/Pages/Keyframe%20example.xcplaygroundpage/Contents.swift)
-where a series 4 steps are chained together using keyframes to show how more
-complex multi-step animations can be built.
+The playground includes this simple example, as well as a [slightly more complex
+example](https://github.com/mathewsanders/Scrubber/blob/master/source/Animation.playground/Pages/Keyframe%20example.xcplaygroundpage/Contents.swift)
+that includes a 4-step animation chained together using keyframes to show how
+more complex multi-step animations can be built.
 
 <img src="./assets/scrubber-chained-1.gif" width="320">
 
@@ -70,10 +91,14 @@ complex multi-step animations can be built.
 - [x] UISlider to scrub animations
 - [x] Button to play animation with default timing curve and duration
 - [ ] Initializers for different device sizes
+- [ ] Resume animation after scrubbing
+- [ ] Pause/resume animation
+- [ ] Scrub paused animation
 
 ## Requirements
 
 - Swift 3.0
+- iOS/tvOS 10.0+
 
 ## Author
 

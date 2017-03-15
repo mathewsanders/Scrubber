@@ -20,7 +20,7 @@ container.startState = {
 // provide the container the animator to scrub
 container.animator = {
     
-    let animator = UIViewPropertyAnimator(duration: 2.5, curve: .easeInOut)
+    let animator = UIViewPropertyAnimator(duration: 2.0, dampingRatio: 0.5)
     
     animator.addAnimations {
         square.transform = CGAffineTransform(rotationAngle: CGFloat.pi/2)
