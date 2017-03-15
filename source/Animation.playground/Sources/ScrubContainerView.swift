@@ -77,6 +77,10 @@ public class ScrubContainerView: UIView {
             self.scrubber.setValue(1.0, animated: true)
         }
         
+        animator.addCompletion({ _ in
+            self.handleReset()
+        })
+        
         playButton.isEnabled = false
         scrubber.isEnabled = false
         
