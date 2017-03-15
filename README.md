@@ -49,14 +49,17 @@ Finally, assign `animator` with a closure that returns a
 ````Swift
 container.animator = {
 
-    let animator = UIViewPropertyAnimator(duration: 2.5, curve: .easeInOut)
+    // create the animator with the duration and timing curve
+    // (in this case using a spring-physics)
+    let animator = UIViewPropertyAnimator(duration: 2.0, dampingRatio: 0.5)
 
+    // define the properties to animate
     animator.addAnimations {
         square.transform = CGAffineTransform(rotationAngle: CGFloat.pi/2)
         square.bounds.size = CGSize(width: 50, height: 150)
         square.backgroundColor = .blue
     }
-
+    // return the animator
     return animator
 }
 ````
@@ -66,9 +69,9 @@ and look at it at any intermediate step.
 
 <img src="./assets/scrubber-simple-1.gif" width="320">
 
-If you wrap the expressions that define the default set-up of the animation,
-`ScrubContainerView` also adds a play button that allows you to watch the
-animation perform with it's defined duration and timing curve.
+If you wrap the expressions that define the default set-up of the animation into
+the `startState` closure,`ScrubContainerView` will add a button button that lets
+you to watch the animation perform with it's defined duration and timing curve.
 
 ````Swift
 container.startState = {
