@@ -12,18 +12,17 @@ the fly.
 
 ## ScrubContainerView
 This project doesn't modify or build on top of `UIViewPropertyAnimator`, but
-instead provides `ScrubContainerView` —a simple UIView subclass— that makes it
+instead provides `ScrubContainerView`, a simple UIView subclass, that makes it
 easier to create, explore, debug, and refine an animation in a playground.
 
-
-Start by making a playground and importing `UIKit` and `PlaygroundSupport`
+1. Start by making a playground and importing `UIKit` and `PlaygroundSupport`
 
 ````Swift
 import UIKit
 import PlaygroundSupport
 ````
 
-Create a new `ScrubContainerView` and make that the playground's `liveView`
+2. Create a new `ScrubContainerView` and make that the playground's `liveView`
 (this presents the view in the playground's assistant editor panel.
 
 ````Swift
@@ -31,7 +30,7 @@ let container = ScrubContainerView()
 PlaygroundPage.current.liveView = container
 ````
 
-Next, go ahead an set up the objects to be animated, adding them to the
+3. Next, go ahead an set up the objects to be animated, adding them to the
 `ScrubContainerView` and setting their initial positions.
 
 ````Swift
@@ -43,7 +42,7 @@ square.bounds.size = CGSize(width: 150, height: 50)
 square.backgroundColor = .red
 ````
 
-Finally, assign `animator` with a closure that returns a
+4. Finally, assign `animator` with a closure that returns a
 `UIViewPropertyAnimator`. This defines the animations to perform.
 
 ````Swift
@@ -69,9 +68,8 @@ and look at it at any intermediate step.
 
 <img src="./assets/scrubber-simple-1.gif" width="320">
 
-If you wrap the expressions that define the default set-up of the animation into
-the `startState` closure,`ScrubContainerView` will add a button button that lets
-you to watch the animation perform with it's defined duration and timing curve.
+An option for step #3 is to wrap the expressions that define the stating state
+into the `startState` closure:
 
 ````Swift
 container.startState = {
@@ -80,6 +78,10 @@ container.startState = {
     square.backgroundColor = .red
 }
 ````
+
+If this property is defined `ScrubContainerView` will add a button button that
+lets you to watch the animation perform with it's defined duration and timing
+curve:
 
 <img src="./assets/scrubber-simple-2.gif" width="320">
 
