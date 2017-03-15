@@ -12,7 +12,7 @@ the fly.
 
 ## ScrubContainerView
 This project doesn't modify or build on top of `UIViewPropertyAnimator`, but
-instead provides `ScrubContainerView` — a simple UIView subclass — that makes it
+instead provides `ScrubContainerView` —a simple UIView subclass— that makes it
 easier to create, explore, debug, and refine an animation in a playground.
 
 
