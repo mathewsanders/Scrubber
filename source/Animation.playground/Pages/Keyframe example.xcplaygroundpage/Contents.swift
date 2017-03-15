@@ -11,8 +11,8 @@ PlaygroundPage.current.liveView = container
 // some useful variables to help with animations
 let offstageLeft = CGAffineTransform(translationX: -100, y: 0)
 let offstageRight = CGAffineTransform(translationX: 100, y: 0)
-let capsuleFrameWide = CGRect(origin: .zero, size: CGSize(width: 100, height: 40))
-let capsuleFrameNarrow = CGRect(origin: .zero, size: CGSize(width: 50, height: 40))
+let capsuleFrameWide = CGRect(origin: .zero, size: CGSize(width: 80, height: 40))
+let capsuleFrameNarrow = CGRect(origin: .zero, size: CGSize(width: 40, height: 40))
 
 // create view to hold the dots ('capsule')
 let capsule = UIView(frame: capsuleFrameWide)
@@ -81,7 +81,7 @@ container.animator = {
             }
             
             // Step 4: make capsure move to narrow width
-            UIView.addKeyframe(withRelativeStartTime: 0.9, relativeDuration: 0.1) {
+            UIView.addKeyframe(withRelativeStartTime: 0.875, relativeDuration: 0.1) {
                 capsule.bounds = capsuleFrameNarrow
             }
         })
