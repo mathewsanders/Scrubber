@@ -31,12 +31,12 @@ PlaygroundPage.current.liveView = container
 ````
 
 3. Next, go ahead an set up the objects to be animated, adding them to the
-`ScrubContainerView` and setting their initial positions.
+`stage` view of `ScrubContainerView` and setting their initial positions.
 
 ````Swift
 let square = UIView()
-container.addSubview(square)
-square.center = container.center
+container.stage.addSubview(square)
+square.center = container.stage.center
 square.transform = .identity
 square.bounds.size = CGSize(width: 150, height: 50)
 square.backgroundColor = .red
@@ -85,17 +85,32 @@ curve:
 
 <img src="./assets/scrubber-simple-2.gif" width="320">
 
-The playground includes this simple example, as well as a [slightly more complex
+### Initializers
+
+A `ScrubContainerView` can be initialized multiple ways. The default initializer
+creates a stage width a 300x300 pixel size.
+
+`ScrubContainerView.init(width: Double, height: Double)` allows a stage of any size.
+
+Convenience initializers `ScrubContainerView.init(device: Device)` and
+`ScrubContainerView.init(device: Device, orientation: Orientation)` allow for
+stages to be created for `Device.iPhoneSE`, `.iPhone`, and .`iPhonePlus` and
+orientations `.portrait` or `.landscape`.
+
+### Examples
+
+The playground includes the example above, as well as a [slightly more complex
 example](https://github.com/mathewsanders/Scrubber/blob/master/source/Animation.playground/Pages/Keyframe%20example.xcplaygroundpage/Contents.swift)
 that includes a 4-step animation chained together using keyframes to show how
-more complex multi-step animations can be built.
+more complex multi-step animations can be built, and a blank template ready to
+start writing a new animation from scratch.
 
 <img src="./assets/scrubber-chained-1.gif" width="320">
 
 ## Roadmap
 - [x] UISlider to scrub animations
 - [x] Button to play animation with default timing curve and duration
-- [ ] Initializers for different device sizes
+- [x] Initializers for different device sizes
 - [ ] Resume animation after scrubbing
 - [ ] Pause/resume animation
 - [ ] Scrub paused animation

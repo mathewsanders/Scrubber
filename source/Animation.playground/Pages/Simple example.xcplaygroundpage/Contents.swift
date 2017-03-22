@@ -8,8 +8,8 @@ PlaygroundPage.current.liveView = container
 
 // set up views to animate
 let square = UIView()
-container.addSubview(square)
-square.center = container.center
+container.stage.addSubview(square)
+square.center = container.stage.center
 
 container.startState = {
     square.transform = .identity

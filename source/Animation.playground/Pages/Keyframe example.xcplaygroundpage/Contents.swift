@@ -5,7 +5,7 @@
 import UIKit
 import PlaygroundSupport
 
-let container = ScrubContainerView()
+let container = ScrubContainerView(device: .iPhoneSE)
 PlaygroundPage.current.liveView = container
 
 // some useful variables to help with animations
@@ -19,7 +19,7 @@ let capsule = UIView(frame: capsuleFrameWide)
 capsule.backgroundColor = #colorLiteral(red: 0.921431005, green: 0.9214526415, blue: 0.9214410186, alpha: 1)
 capsule.layer.cornerRadius = 20
 capsule.clipsToBounds = true
-container.addSubview(capsule)
+container.stage.addSubview(capsule)
 
 // create three dots and position relative to capsule
 let capsuleDots = [UIView(), UIView(), UIView()]
@@ -36,7 +36,7 @@ capsuleDots[0].center = capsule.center.applying(CGAffineTransform(translationX: 
 capsuleDots[1].center = capsule.center
 capsuleDots[2].center = capsule.center.applying(CGAffineTransform(translationX: -20, y: 0))
 
-capsule.center = container.center
+capsule.center = container.stage.center
 
 // reset the dots and capsule for animation start
 container.startState = {
