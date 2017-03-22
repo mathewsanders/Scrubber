@@ -66,7 +66,7 @@ container.animator = {
 `ScrubContainerView` adds a `UISlider` that lets you scrub through the animation
 and look at it at any intermediate step.
 
-<img src="./assets/scrubber-simple-1.gif" width="320">
+<img src="./assets/scrubber-simple-1.gif" width="324">
 
 An option for step #3 is to wrap the expressions that define the stating state
 into the `startState` closure:
@@ -83,7 +83,7 @@ If this property is defined `ScrubContainerView` will add a button button that
 lets you to watch the animation perform with it's defined duration and timing
 curve:
 
-<img src="./assets/scrubber-simple-2.gif" width="320">
+<img src="./assets/scrubber-simple-2.gif" width="324">
 
 ### Initializers
 
@@ -105,7 +105,7 @@ that includes a 4-step animation chained together using keyframes to show how
 more complex multi-step animations can be built, and a blank template ready to
 start writing a new animation from scratch.
 
-<img src="./assets/scrubber-chained-1.gif" width="320">
+<img src="./assets/scrubber-chained-1.gif" width="344">
 
 ## Roadmap
 - [x] UISlider to scrub animations
